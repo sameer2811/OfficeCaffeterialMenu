@@ -26,12 +26,7 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    /**
-     * TODO: POST /api/menus
-     * Create a new menu.
-     *
-     * - Return HTTP 201 (Created) with the MenuResponse.
-     */
+
     @PostMapping
     public ResponseEntity<MenuResponse> createMenu(@RequestBody MenuRequest request) {
         MenuResponse createdMenu = menuService.createMenu(request);
@@ -49,12 +44,7 @@ public class MenuController {
         return ResponseEntity.status(HttpStatus.OK).body(menu);
     }
 
-    /**
-     * TODO: GET /api/menus/restaurant/{restaurantId}
-     * Get all menus for a specific restaurant.
-     *
-     * - Return HTTP 200 with the list of MenuResponse.
-     */
+
     @GetMapping("/restaurant/{restaurantId}")
     public ResponseEntity<List<MenuResponse>> getMenusByRestaurant(@PathVariable Long restaurantId) {
         List<MenuResponse> menus = menuService.getMenusByRestaurantId(restaurantId);
