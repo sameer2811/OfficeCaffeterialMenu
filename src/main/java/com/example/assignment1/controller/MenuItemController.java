@@ -24,64 +24,34 @@ public class MenuItemController {
         this.menuItemService = menuItemService;
     }
 
-    /**
-     * TODO: POST /api/menu-items
-     * Create a new menu item.
-     *
-     * - Return HTTP 201 (Created) with the created MenuItem.
-     */
     @PostMapping
     public ResponseEntity<MenuItem> createMenuItem(@RequestBody MenuItemRequest request) {
-        // TODO: Implement this method
-        return null;
+        MenuItem createdMenuItem = menuItemService.createMenuItem(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdMenuItem);
     }
 
-    /**
-     * TODO: GET /api/menu-items
-     * Get all menu items.
-     *
-     * - Return HTTP 200 with the list of all menu items.
-     */
     @GetMapping
     public ResponseEntity<List<MenuItem>> getAllMenuItems() {
-        // TODO: Implement this method
-        return null;
+        List<MenuItem> menuItems = menuItemService.getAllMenuItems();
+        return ResponseEntity.status(HttpStatus.OK).body(menuItems);
     }
 
-    /**
-     * TODO: GET /api/menu-items/{id}
-     * Get a menu item by ID.
-     *
-     * - Return HTTP 200 with the menu item.
-     */
     @GetMapping("/{id}")
     public ResponseEntity<MenuItem> getMenuItemById(@PathVariable Long id) {
-        // TODO: Implement this method
-        return null;
+        MenuItem menuItem = menuItemService.getMenuItemById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(menuItem);
     }
 
-    /**
-     * TODO: PUT /api/menu-items/{id}
-     * Update an existing menu item.
-     *
-     * - Return HTTP 200 with the updated menu item.
-     */
     @PutMapping("/{id}")
     public ResponseEntity<MenuItem> updateMenuItem(@PathVariable Long id,
-                                                   @RequestBody MenuItemRequest request) {
-        // TODO: Implement this method
-        return null;
+            @RequestBody MenuItemRequest request) {
+        MenuItem updatedMenuItem = menuItemService.updateMenuItem(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedMenuItem);
     }
 
-    /**
-     * TODO: DELETE /api/menu-items/{id}
-     * Delete a menu item.
-     *
-     * - Return HTTP 204 (No Content) with an empty body.
-     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMenuItem(@PathVariable Long id) {
-        // TODO: Implement this method
-        return null;
+        menuItemService.deleteMenuItem(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
