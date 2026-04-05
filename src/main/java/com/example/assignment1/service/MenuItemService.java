@@ -56,6 +56,10 @@ public class MenuItemService {
         throw new ResourceNotFoundException("Menu item not found with id: " + id);
     }
 
+    public List<MenuItem> findAllById(List<Long> ids) {
+        return menuItemRepository.findAllByIds(ids);
+    }
+
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepository.findAll();
     }
