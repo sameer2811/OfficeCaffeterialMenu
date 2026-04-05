@@ -9,7 +9,7 @@ Make sure the Spring Boot app is running on http://localhost:8080 first.
 import requests
 import sys
 
-BASE_URL = "http://localhost:8080"
+BASE_URL = "http://localhost:8000"
 PASS = 0
 FAIL = 0
 ERRORS = []

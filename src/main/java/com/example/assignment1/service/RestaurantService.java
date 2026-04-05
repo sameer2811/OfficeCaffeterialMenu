@@ -27,6 +27,9 @@ public class RestaurantService {
         if (request.getName() == null || request.getName().isEmpty()) {
             throw new InvalidRequestException("Restaurant name cannot be empty");
         }
+        if (request.getName().isBlank()) {
+            throw new InvalidRequestException("Restaurant name cannot be blank");
+        }
         if (request.getLocation() == null || request.getLocation().isEmpty()) {
             throw new InvalidRequestException("Restaurant location cannot be empty");
         }

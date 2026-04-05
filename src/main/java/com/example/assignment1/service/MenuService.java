@@ -51,6 +51,10 @@ public class MenuService {
         if (request.getMenuItemIds() == null || request.getMenuItemIds().isEmpty()) {
             throw new InvalidRequestException("Menu must contain at least one item");
         }
+        restaurantService.getRestaurantById(request.getRestaurantId());
+        for (Long itemId : request.getMenuItemIds()) {
+            menuItemService.getMenuItemById(itemId);
+        }
         Optional<Menu> existingMenu = menuRepository.findByRestaurantIdAndDateAndMealType(request.getRestaurantId(),
                 request.getDate(), request.getMealType());
         if (existingMenu.isPresent()) {
@@ -81,6 +85,7 @@ public class MenuService {
     }
 
     public List<MenuResponse> getMenusByRestaurantId(Long restaurantId) {
+        restaurantService.getRestaurantById(restaurantId);
         return menuRepository.findAll().stream().filter(menu -> menu.getRestaurantId().equals(restaurantId))
                 .map(this::toMenuResponse).collect(Collectors.toList());
     }
@@ -90,6 +95,7 @@ public class MenuService {
     }
 
     public List<MenuResponse> getMenusByRestaurantIdAndDate(Long restaurantId, LocalDate date) {
+        restaurantService.getRestaurantById(restaurantId);
         return menuRepository.findByRestaurantIdAndDate(restaurantId, date).stream().map(this::toMenuResponse)
                 .collect(Collectors.toList());
     }
@@ -110,6 +116,10 @@ public class MenuService {
         }
         if (request.getMenuItemIds() == null || request.getMenuItemIds().isEmpty()) {
             throw new InvalidRequestException("Menu must contain at least one item");
+        }
+        restaurantService.getRestaurantById(request.getRestaurantId());
+        for (Long itemId : request.getMenuItemIds()) {
+            menuItemService.getMenuItemById(itemId);
         }
 
         Optional<Menu> checkForDuplicate = menuRepository.findByRestaurantIdAndDateAndMealType(
