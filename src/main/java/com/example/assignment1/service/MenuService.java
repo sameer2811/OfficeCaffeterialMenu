@@ -86,8 +86,7 @@ public class MenuService {
     }
 
     public List<MenuResponse> getMenusByDate(LocalDate date) {
-        // TODO: Implement this method
-        return null;
+        return menuRepository.findByDate(date).stream().map(this::toMenuResponse).collect(Collectors.toList());
     }
 
     public List<MenuResponse> getMenusByRestaurantIdAndDate(Long restaurantId, LocalDate date) {
@@ -95,25 +94,6 @@ public class MenuService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * TODO: Update an existing menu.
-     *
-     * Steps:
-     * 1. Find the existing menu by ID. If not found → throw
-     * ResourceNotFoundException.
-     * 2. Validate the request fields (same as create: restaurantId, date, mealType,
-     * menuItemIds).
-     * 3. Verify the restaurant exists.
-     * 4. Verify all menu item IDs exist.
-     * 5. Check for duplicate: if the (restaurantId + date + mealType) combination
-     * has changed,
-     * check that no OTHER menu already uses that combination.
-     * Use menuRepository.findByRestaurantIdAndDateAndMealType().
-     * If a duplicate is found AND it's not the same menu (different ID) → throw
-     * DuplicateResourceException.
-     * 6. Update the existing menu's fields.
-     * 7. Save and convert to MenuResponse.
-     */
     public MenuResponse updateMenu(Long id, MenuRequest request) {
         Optional<Menu> existingMenu = menuRepository.findById(id);
         if (!existingMenu.isPresent()) {

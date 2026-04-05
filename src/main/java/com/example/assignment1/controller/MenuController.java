@@ -34,32 +34,19 @@ public class MenuController {
      */
     @PostMapping
     public ResponseEntity<MenuResponse> createMenu(@RequestBody MenuRequest request) {
-        // TODO: Implement this method
-        return null;
+        MenuResponse createdMenu = menuService.createMenu(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdMenu);
     }
-
-    /**
-     * TODO: GET /api/menus
-     * Get all menus.
-     *
-     * - Return HTTP 200 with the list of all MenuResponse.
-     */
     @GetMapping
     public ResponseEntity<List<MenuResponse>> getAllMenus() {
-        // TODO: Implement this method
-        return null;
+        List<MenuResponse> menus = menuService.getAllMenus();
+        return ResponseEntity.status(HttpStatus.OK).body(menus);
     }
 
-    /**
-     * TODO: GET /api/menus/{id}
-     * Get a menu by ID.
-     *
-     * - Return HTTP 200 with the MenuResponse.
-     */
     @GetMapping("/{id}")
     public ResponseEntity<MenuResponse> getMenuById(@PathVariable Long id) {
-        // TODO: Implement this method
-        return null;
+        MenuResponse menu = menuService.getMenuById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(menu);
     }
 
     /**
@@ -70,63 +57,35 @@ public class MenuController {
      */
     @GetMapping("/restaurant/{restaurantId}")
     public ResponseEntity<List<MenuResponse>> getMenusByRestaurant(@PathVariable Long restaurantId) {
-        // TODO: Implement this method
-        return null;
+        List<MenuResponse> menus = menuService.getMenusByRestaurantId(restaurantId);
+        return ResponseEntity.status(HttpStatus.OK).body(menus);
     }
 
-    /**
-     * TODO: GET /api/menus/date/{date}
-     * Get all menus for a specific date.
-     *
-     * The date format in the URL is "yyyy-MM-dd" (e.g., /api/menus/date/2026-02-10).
-     * The @DateTimeFormat annotation on the parameter handles parsing automatically.
-     *
-     * - Return HTTP 200 with the list of MenuResponse.
-     */
     @GetMapping("/date/{date}")
     public ResponseEntity<List<MenuResponse>> getMenusByDate(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        // TODO: Implement this method
-        return null;
+        List<MenuResponse> menus = menuService.getMenusByDate(date);
+        return ResponseEntity.status(HttpStatus.OK).body(menus);
     }
 
-    /**
-     * TODO: GET /api/menus/restaurant/{restaurantId}/date/{date}
-     * Get all menus for a specific restaurant on a specific date.
-     * This returns all meals (breakfast, lunch, dinner) for that restaurant on that date.
-     *
-     * - Return HTTP 200 with the list of MenuResponse.
-     */
     @GetMapping("/restaurant/{restaurantId}/date/{date}")
     public ResponseEntity<List<MenuResponse>> getMenusByRestaurantAndDate(
             @PathVariable Long restaurantId,
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        // TODO: Implement this method
-        return null;
+        List<MenuResponse> menus = menuService.getMenusByRestaurantIdAndDate(restaurantId, date);
+        return ResponseEntity.status(HttpStatus.OK).body(menus);
     }
 
-    /**
-     * TODO: PUT /api/menus/{id}
-     * Update an existing menu.
-     *
-     * - Return HTTP 200 with the updated MenuResponse.
-     */
     @PutMapping("/{id}")
     public ResponseEntity<MenuResponse> updateMenu(@PathVariable Long id,
                                                    @RequestBody MenuRequest request) {
-        // TODO: Implement this method
-        return null;
+        MenuResponse updatedMenu = menuService.updateMenu(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedMenu);
     }
 
-    /**
-     * TODO: DELETE /api/menus/{id}
-     * Delete a menu.
-     *
-     * - Return HTTP 204 (No Content) with an empty body.
-     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMenu(@PathVariable Long id) {
-        // TODO: Implement this method
-        return null;
+        menuService.deleteMenu(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
