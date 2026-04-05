@@ -23,72 +23,47 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    /**
-     * TODO: Create a new restaurant.
-     *
-     * Steps:
-     *   1. Validate that the restaurant name is not null or blank (empty/whitespace).
-     *      If invalid → throw InvalidRequestException("Restaurant name cannot be empty")
-     *   2. Validate that the location is not null or blank.
-     *      If invalid → throw InvalidRequestException("Restaurant location cannot be empty")
-     *   3. Create a new Restaurant object (id should be null — the repository will assign it).
-     *   4. Save it using the repository and return the saved restaurant.
-     */
     public Restaurant createRestaurant(RestaurantRequest request) {
-        // TODO: Implement this method
-        return null;
+        if (request.getName() == null || request.getName().isEmpty()) {
+            throw new InvalidRequestException("Restaurant name cannot be empty");
+        }
+        if (request.getLocation() == null || request.getLocation().isEmpty()) {
+            throw new InvalidRequestException("Restaurant location cannot be empty");
+        }
+        Restaurant restaurant = Restaurant.builder()
+                .name(request.getName())
+                .location(request.getLocation())
+                .build();
+        return restaurantRepository.save(restaurant);
     }
 
-    /**
-     * TODO: Get a restaurant by its ID.
-     *
-     * Steps:
-     *   1. Look up the restaurant in the repository using findById.
-     *   2. If not found → throw ResourceNotFoundException("Restaurant not found with id: " + id)
-     *   3. Return the found restaurant.
-     *
-     * Hint: Optional has an .orElseThrow() method that is very useful here.
-     */
     public Restaurant getRestaurantById(Long id) {
-        // TODO: Implement this method
-        return null;
+        return restaurantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not able to find the restaurant with id: " + id));
     }
 
-    /**
-     * TODO: Get all restaurants.
-     *
-     * @return list of all restaurants (empty list if none exist)
-     */
     public List<Restaurant> getAllRestaurants() {
-        // TODO: Implement this method
-        return null;
+        return restaurantRepository.findAll();
     }
 
-    /**
-     * TODO: Update an existing restaurant.
-     *
-     * Steps:
-     *   1. Fetch the existing restaurant using getRestaurantById (will throw if not found).
-     *   2. Validate that the new name is not null or blank.
-     *      If invalid → throw InvalidRequestException("Restaurant name cannot be empty")
-     *   3. Validate that the new location is not null or blank.
-     *      If invalid → throw InvalidRequestException("Restaurant location cannot be empty")
-     *   4. Update the existing restaurant's name and location with values from the request.
-     *   5. Save and return the updated restaurant.
-     */
     public Restaurant updateRestaurant(Long id, RestaurantRequest request) {
-        // TODO: Implement this method
-        return null;
+
+        Restaurant existingRestaurant = getRestaurantById(id);
+        if (request.getName() == null || request.getName().isEmpty()) {
+            throw new InvalidRequestException("Restaurant name cannot be empty");
+        }
+        if (request.getLocation() == null || request.getLocation().isEmpty()) {
+            throw new InvalidRequestException("Restaurant location cannot be empty");
+        }
+        existingRestaurant.setName(request.getName());
+        existingRestaurant.setLocation(request.getLocation());
+        return restaurantRepository.save(existingRestaurant);
     }
 
-    /**
-     * TODO: Delete a restaurant by ID.
-     *
-     * Steps:
-     *   1. Verify the restaurant exists using getRestaurantById (will throw if not found).
-     *   2. Delete it from the repository using deleteById.
-     */
     public void deleteRestaurant(Long id) {
-        // TODO: Implement this method
+        // if the exception is not thrown, that means the restaurant exists and we can
+        // delete it
+        getRestaurantById(id);
+        restaurantRepository.deleteById(id);
     }
 }
