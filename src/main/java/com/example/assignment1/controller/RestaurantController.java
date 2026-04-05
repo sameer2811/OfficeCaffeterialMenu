@@ -8,10 +8,8 @@ package com.example.assignment1.controller;
 import com.example.assignment1.dto.RestaurantRequest;
 import com.example.assignment1.model.Restaurant;
 import com.example.assignment1.service.RestaurantService;
-import com.mysql.cj.protocol.x.Ok;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
