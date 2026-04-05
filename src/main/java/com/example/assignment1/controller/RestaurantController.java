@@ -8,7 +8,10 @@ package com.example.assignment1.controller;
 import com.example.assignment1.dto.RestaurantRequest;
 import com.example.assignment1.model.Restaurant;
 import com.example.assignment1.service.RestaurantService;
+import com.mysql.cj.protocol.x.Ok;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,79 +27,34 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    /**
-     * TODO: POST /api/restaurants
-     * Create a new restaurant.
-     *
-     * - Accept a RestaurantRequest from the request body (already done via @RequestBody).
-     * - Call the service to create the restaurant.
-     * - Return HTTP 201 (Created) with the created restaurant in the response body.
-     *
-     * Hint: ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant)
-     */
     @PostMapping
     public ResponseEntity<Restaurant> createRestaurant(@RequestBody RestaurantRequest request) {
-        // TODO: Implement this method
-        return null;
+        Restaurant createdRestaurant = restaurantService.createRestaurant(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }
 
-    /**
-     * TODO: GET /api/restaurants
-     * Get all restaurants.
-     *
-     * - Call the service to get all restaurants.
-     * - Return HTTP 200 (OK) with the list in the response body.
-     *
-     * Hint: ResponseEntity.ok(list)
-     */
     @GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants() {
-        // TODO: Implement this method
-        return null;
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+        return ResponseEntity.status(HttpStatus.OK).body(restaurants);
     }
 
-    /**
-     * TODO: GET /api/restaurants/{id}
-     * Get a restaurant by its ID.
-     *
-     * - The {id} is already extracted via @PathVariable.
-     * - Call the service to get the restaurant.
-     * - Return HTTP 200 with the restaurant.
-     * - If not found, the service throws an exception → GlobalExceptionHandler handles it.
-     */
     @GetMapping("/{id}")
     public ResponseEntity<Restaurant> getRestaurantById(@PathVariable Long id) {
-        // TODO: Implement this method
-        return null;
+        Restaurant restaurant = restaurantService.getRestaurantById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(restaurant);
     }
 
-    /**
-     * TODO: PUT /api/restaurants/{id}
-     * Update an existing restaurant.
-     *
-     * - Extract id from path, request body already parsed.
-     * - Call the service to update.
-     * - Return HTTP 200 with the updated restaurant.
-     */
     @PutMapping("/{id}")
     public ResponseEntity<Restaurant> updateRestaurant(@PathVariable Long id,
-                                                       @RequestBody RestaurantRequest request) {
-        // TODO: Implement this method
-        return null;
+            @RequestBody RestaurantRequest request) {
+        Restaurant updatedRestaurant = restaurantService.updateRestaurant(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedRestaurant);
     }
 
-    /**
-     * TODO: DELETE /api/restaurants/{id}
-     * Delete a restaurant.
-     *
-     * - Call the service to delete the restaurant.
-     * - Return HTTP 204 (No Content) with an empty body.
-     *
-     * Hint: ResponseEntity.noContent().build()
-     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRestaurant(@PathVariable Long id) {
-        // TODO: Implement this method
-        return null;
+        restaurantService.deleteRestaurant(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
